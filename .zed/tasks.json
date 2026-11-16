@@ -1,0 +1,22 @@
+[
+  {
+    "label": "CMake: Configure (Debug)",
+    "command": "cmake -B build -DCMAKE_BUILD_TYPE=Debug"
+  },
+  {
+    "label": "CMake: Build",
+    "command": "cmake --build build"
+  },
+  {
+    "label": "Run Raytracer",
+    "command": "./build/bin/raytracer"
+  },
+  {
+    "label": "Run Tests (CTest)",
+    "command": "ctest --test-dir build --output-on-failure"
+  },
+  {
+    "label": "Run Tests (Catch2 Detailed)",
+    "command": "./build/bin/raytracer_tests -s"
+  }
+]

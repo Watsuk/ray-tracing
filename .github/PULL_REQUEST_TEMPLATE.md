@@ -1,0 +1,19 @@
+## Description
+
+Please include a summary of the change and which issue it fixes.
+
+Closes #(issue)
+
+## Type of Change
+
+- [ ] Bug fix (non-breaking change which fixes an issue)
+- [ ] New feature (non-breaking change which adds functionality)
+- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
+- [ ] Architecture / Build change (includes a new or updated ADR)
+
+## Checklist
+
+- [ ] My code follows the code style of this project (`clang-format`).
+- [ ] I have followed the TDD workflow and added tests covering my changes.
+- [ ] All new and existing unit tests pass locally (`make test`).
+- [ ] If this introduces a tool, library, or build change, an ADR with status `Proposed` is included in `docs/adr/`.
