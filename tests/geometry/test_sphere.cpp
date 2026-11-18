@@ -21,4 +21,9 @@ TEST_CASE("Sphere ray intersection and colour", "[geometry][sphere]") {
         Sphere sphere(Vector(6.0, 0.0, 9.0), 5.0, Colour(0.0, 0.0, 1.0));
         REQUIRE_FALSE(sphere.isHitBy(ray));
     }
+
+    SECTION("Ray misses sphere behind camera with centre (0, 0, -11)") {
+        Sphere sphere(Vector(0.0, 0.0, -11.0), 5.0, Colour(1.0, 0.0, 0.0));
+        REQUIRE_FALSE(sphere.isHitBy(ray));
+    }
 }
