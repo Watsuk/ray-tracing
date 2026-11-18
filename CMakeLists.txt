@@ -25,6 +25,25 @@ else()
     target_compile_options(project_warnings INTERFACE -Wall -Wextra -Wpedantic)
 endif()
 
+# Fetch and configure LodePNG (pinned version)
+include(FetchContent)
+FetchContent_Declare(
+    lodepng
+    GIT_REPOSITORY https://github.com/lvandeve/lodepng.git
+    GIT_TAG        7b2893e35891c0c85bee5595caafaf3c2044b409
+)
+
+FetchContent_GetProperties(lodepng)
+if(NOT lodepng_POPULATED)
+    FetchContent_Populate(lodepng)
+    add_library(lodepng STATIC
+        "${lodepng_SOURCE_DIR}/lodepng.cpp"
+    )
+    target_include_directories(lodepng SYSTEM PUBLIC
+        "${lodepng_SOURCE_DIR}"
+    )
+endif()
+
 # Core raytracer library (separates engine logic from CLI main for clean TDD)
 add_library(raytracer_core
     src/app.cpp
@@ -35,6 +54,7 @@ add_library(raytracer_core
     src/colour/Colour.cpp
     src/render/trace.cpp
     src/render/Image.cpp
+    src/io/PngSaver.cpp
 )
 
 target_include_directories(raytracer_core PUBLIC
@@ -45,6 +65,7 @@ target_include_directories(raytracer_core PUBLIC
 
 target_link_libraries(raytracer_core PUBLIC
     project_warnings
+    lodepng
 )
 
 # Main CLI executable

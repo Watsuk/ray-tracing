@@ -6,6 +6,7 @@
 #include "render/Camera.h"
 #include "colour/Colour.h"
 #include "render/trace.h"
+#include "io/PngSaver.h"
 
 int main() {
     std::cout << raytracer::get_greeting() << "\n";
@@ -14,9 +15,18 @@ int main() {
     Ray ray = camera.rayThroughCenter();
     Sphere sphere(Vector(0, 0, 9), 5, Colour(1, 0, 0));
 
-    Colour pixel = trace(ray, sphere);
+    Colour colour(0, 0, 0);
+    bool hit = sphere.hit(ray);
+    if (hit) {
+       colour = Colour(1, 0, 0);
+    }
 
-    std::cout << "Colour: (" << pixel.r() << ", " << pixel.g() << ", " << pixel.b() << ")\n";
+    std::cout << "Colour: (" << colour.r() << ", " << colour.g() << ", " << colour.b() << ")\n";
+
+    Image image(800, 600);
+    image.setPixel(400, 300, colour);
+    PngSaver saver = PngSaver();
+    saver.save(image);
 
     return 0;
 }
