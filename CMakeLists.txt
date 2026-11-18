@@ -33,6 +33,7 @@ add_library(raytracer_core
     src/geometry/Sphere.cpp
     src/render/Camera.cpp
     src/colour/Colour.cpp
+    src/render/trace.cpp
 )
 
 target_include_directories(raytracer_core PUBLIC
