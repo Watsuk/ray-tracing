@@ -28,10 +28,14 @@ endif()
 # Core raytracer library (separates engine logic from CLI main for clean TDD)
 add_library(raytracer_core
     src/app.cpp
+    src/math/Vector.cpp
+    src/math/Ray.cpp
 )
 
 target_include_directories(raytracer_core PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/math>
     $<INSTALL_INTERFACE:include>
 )
 

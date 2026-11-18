@@ -13,6 +13,13 @@ FetchContent_MakeAvailable(Catch2)
 # Unit test executable linking core library and Catch2 main runner
 add_executable(raytracer_tests
     test_greeting.cpp
+    math/test_vector_construction.cpp
+    math/test_vector_addition.cpp
+    math/test_vector_subtraction.cpp
+    math/test_vector_multiplication.cpp
+    math/test_vector_dot.cpp
+    math/test_vector_length.cpp
+    math/test_ray_construction.cpp
 )
 
 target_link_libraries(raytracer_tests PRIVATE
