@@ -2,21 +2,25 @@
 
 #include "math/Vector.h"
 #include "geometry/Ray.h"
+#include "geometry/Sphere.h"
+#include "render/Image.h"
 
 class Camera {
 private:
-    Vector _eye;
-    Vector _screenCentre;
+    Vector _position;
+    double _screenWidth;
 
 public:
-    Camera(const Vector& eye, const Vector& screenCentre);
-    Camera(const Vector& eye);
+    Camera(const Vector& position, double screenWidth = 5.0);
 
-    Vector eye() const;
-    Vector screenCentre() const;
-    Vector origin() const;
-    Vector direction() const;
+    const Vector& position() const;
+    double screenWidth() const;
 
-    Ray ray() const;
-    Ray rayThroughCenter() const;
+    Ray rayThroughCenter();
+
+    Ray rayThroughPixel(int column, int row, int imageWidth, int imageHeight);
+
+    Image render(const Sphere& sphere, unsigned int imageWidth, unsigned int imageHeight);
+    void render(Image& image, const Sphere& sphere);
+    void render(const Sphere& sphere, Image& image);
 };
