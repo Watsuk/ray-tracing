@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iostream>
+
 class Colour {
 private:
     double _r;
@@ -14,4 +16,8 @@ public:
     double b() const;
 
     bool operator==(const Colour& other) const = default;
+
+    friend std::ostream& operator<<(std::ostream& os, const Colour& c) {
+        return os << "(" << c._r << ", " << c._g << ", " << c._b << ")";
+    }
 };

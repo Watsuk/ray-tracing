@@ -25,6 +25,7 @@ add_executable(raytracer_tests
     render/test_camera.cpp
     geometry/test_sphere.cpp
     render/test_trace.cpp
+    render/test_image.cpp
 )
 
 target_include_directories(raytracer_tests PRIVATE
