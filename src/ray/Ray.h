@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Vector.h"
+#include "math/Vector.h"
 
 class Ray {
 private:

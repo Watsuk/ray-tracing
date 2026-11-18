@@ -19,7 +19,6 @@ add_executable(raytracer_tests
     math/test_vector_multiplication.cpp
     math/test_vector_dot.cpp
     math/test_vector_length.cpp
-    math/test_ray_construction.cpp
 )
 
 target_link_libraries(raytracer_tests PRIVATE

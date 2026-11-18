@@ -29,13 +29,16 @@ endif()
 add_library(raytracer_core
     src/app.cpp
     src/math/Vector.cpp
-    src/math/Ray.cpp
+    src/ray/Ray.cpp
+    src/geometry/Sphere.cpp
 )
 
 target_include_directories(raytracer_core PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/math>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/ray>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/sphere>
     $<INSTALL_INTERFACE:include>
 )
 
