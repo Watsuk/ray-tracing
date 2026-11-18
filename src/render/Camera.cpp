@@ -1,5 +1,5 @@
-#include "Camera.h"
-#include "ray/Ray.h"
+#include "render/Camera.h"
+#include "geometry/Ray.h"
 
 Camera::Camera(const Vector& origin)
     : _origin(origin), _direction(0.0, 0.0, 1.0) {}

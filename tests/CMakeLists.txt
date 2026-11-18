@@ -19,6 +19,12 @@ add_executable(raytracer_tests
     math/test_vector_multiplication.cpp
     math/test_vector_dot.cpp
     math/test_vector_length.cpp
+    ray/test_ray_construction.cpp
+    camera/test_camera_construction.cpp
+    camera/test_camera_ray_through_center.cpp
+    colour/test_colour_construction.cpp
+    geometry/test_sphere_construction.cpp
+    geometry/test_sphere_hit.cpp
 )
 
 target_link_libraries(raytracer_tests PRIVATE

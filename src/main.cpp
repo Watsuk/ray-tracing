@@ -1,9 +1,9 @@
 #include <iostream>
 #include "raytracer/app.hpp"
 #include "math/Vector.h"
-#include "ray/Ray.h"
+#include "geometry/Ray.h"
 #include "geometry/Sphere.h"
-#include "camera/Camera.h"
+#include "render/Camera.h"
 #include "colour/Colour.h"
 
 int main() {

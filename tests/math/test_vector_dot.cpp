@@ -1,5 +1,5 @@
 #include <catch2/catch_test_macros.hpp>
-#include "Vector.h"
+#include "math/Vector.h"
 
 TEST_CASE("Vector dot product (scalar product)", "[math][vector][dot]") {
     SECTION("Computes the scalar product of two vectors") {

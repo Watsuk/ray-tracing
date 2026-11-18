@@ -1,5 +1,5 @@
 #include <catch2/catch_test_macros.hpp>
-#include "Vector.h"
+#include "math/Vector.h"
 
 TEST_CASE("Vector scalar multiplication", "[math][vector][multiplication]") {
     SECTION("Multiplies vector by scalar (vector * scalar)") {

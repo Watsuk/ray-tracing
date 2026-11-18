@@ -1,5 +1,5 @@
-#include "Sphere.h"
-#include "ray/Ray.h"
+#include "geometry/Sphere.h"
+#include "geometry/Ray.h"
 #include <cmath>
 
 Sphere::Sphere(const Vector& center, double radius)

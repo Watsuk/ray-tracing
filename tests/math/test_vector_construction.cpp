@@ -1,5 +1,5 @@
 #include <catch2/catch_test_macros.hpp>
-#include "Vector.h"
+#include "math/Vector.h"
 
 TEST_CASE("Vector construction and coordinate getters", "[math][vector][construction]") {
     SECTION("Initializes components with given values and returns them through getters") {

@@ -1,5 +1,5 @@
 #include <catch2/catch_test_macros.hpp>
-#include "Vector.h"
+#include "math/Vector.h"
 
 TEST_CASE("Vector length (magnitude)", "[math][vector][length]") {
     SECTION("Length of zero vector is zero") {

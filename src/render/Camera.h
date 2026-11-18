@@ -1,7 +1,7 @@
 #pragma once
 
 #include "math/Vector.h"
-#include "ray/Ray.h"
+#include "geometry/Ray.h"
 
 class Camera {
 private:

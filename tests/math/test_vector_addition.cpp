@@ -1,5 +1,5 @@
 #include <catch2/catch_test_macros.hpp>
-#include "Vector.h"
+#include "math/Vector.h"
 
 TEST_CASE("Vector addition", "[math][vector][addition]") {
     SECTION("Adds two vectors component-wise") {

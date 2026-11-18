@@ -29,20 +29,15 @@ endif()
 add_library(raytracer_core
     src/app.cpp
     src/math/Vector.cpp
-    src/ray/Ray.cpp
+    src/geometry/Ray.cpp
     src/geometry/Sphere.cpp
-    src/camera/Camera.cpp
+    src/render/Camera.cpp
     src/colour/Colour.cpp
 )
 
 target_include_directories(raytracer_core PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/math>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/ray>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/geometry>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/camera>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/colour>
     $<INSTALL_INTERFACE:include>
 )
 
