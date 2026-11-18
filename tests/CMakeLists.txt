@@ -12,6 +12,7 @@ FetchContent_MakeAvailable(Catch2)
 
 # Unit test executable linking core library and Catch2 main runner
 add_executable(raytracer_tests
+    test_helpers.cpp
     test_greeting.cpp
     math/test_vector_construction.cpp
     math/test_vector_addition.cpp
@@ -19,12 +20,15 @@ add_executable(raytracer_tests
     math/test_vector_multiplication.cpp
     math/test_vector_dot.cpp
     math/test_vector_length.cpp
-    ray/test_ray_construction.cpp
-    camera/test_camera_construction.cpp
-    camera/test_camera_ray_through_center.cpp
-    colour/test_colour_construction.cpp
+    colour/test_colour.cpp
+    geometry/test_ray.cpp
+    render/test_camera.cpp
     geometry/test_sphere_construction.cpp
     geometry/test_sphere_hit.cpp
+)
+
+target_include_directories(raytracer_tests PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 target_link_libraries(raytracer_tests PRIVATE

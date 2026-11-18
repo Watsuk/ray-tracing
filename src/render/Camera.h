@@ -5,15 +5,18 @@
 
 class Camera {
 private:
-    Vector _origin;
-    Vector _direction;
+    Vector _eye;
+    Vector _screenCentre;
 
 public:
-    Camera(const Vector& origin);
-    Camera(const Vector& origin, const Vector& direction);
+    Camera(const Vector& eye, const Vector& screenCentre);
+    Camera(const Vector& eye);
 
+    Vector eye() const;
+    Vector screenCentre() const;
     Vector origin() const;
     Vector direction() const;
 
-    Ray rayThroughCenter();
+    Ray ray() const;
+    Ray rayThroughCenter() const;
 };

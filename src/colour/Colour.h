@@ -12,4 +12,6 @@ public:
     double r() const;
     double g() const;
     double b() const;
+
+    bool operator==(const Colour& other) const = default;
 };
