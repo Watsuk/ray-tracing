@@ -2,8 +2,11 @@
 #include "geometry/Ray.h"
 #include <cmath>
 
+Sphere::Sphere(const Vector& center, double radius, std::shared_ptr<Material> material)
+    : _center(center), _radius(radius), _material(std::move(material)) {}
+
 Sphere::Sphere(const Vector& center, double radius, const Colour& colour)
-    : _center(center), _radius(radius), _colour(colour) {}
+    : _center(center), _radius(radius), _material(std::make_shared<FlatShader>(colour)) {}
 
 Vector Sphere::center() const {
     return _center;
@@ -13,8 +16,15 @@ double Sphere::radius() const {
     return _radius;
 }
 
+std::shared_ptr<Material> Sphere::material() const {
+    return _material;
+}
+
 Colour Sphere::colour() const {
-    return _colour;
+    if (_material) {
+        return _material->shade(Ray(Vector(0.0, 0.0, 0.0), Vector(0.0, 0.0, 1.0)));
+    }
+    return Colour(0.0, 0.0, 0.0);
 }
 
 bool Sphere::isHitBy(const Ray& ray) const {

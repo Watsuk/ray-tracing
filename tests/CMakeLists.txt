@@ -27,6 +27,7 @@ add_executable(raytracer_tests
     render/test_trace.cpp
     render/test_image.cpp
     io/test_image_saver.cpp
+    material/test_material.cpp
 )
 
 target_include_directories(raytracer_tests PRIVATE
