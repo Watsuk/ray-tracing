@@ -27,10 +27,10 @@ int main() {
 
     Image image = camera.render(scene, width, height);
 
-    PngSaver saver("output.png");
+    PngSaver saver("image.png");
     saver.save(image);
 
-    std::cout << "Rendered and saved " << width << "x" << height << " image to output.png\n";
+    std::cout << "Rendered and saved " << width << "x" << height << " image to image.png\n";
 
     return 0;
 }
