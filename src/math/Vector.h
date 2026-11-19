@@ -20,6 +20,9 @@ public:
     // Magnitude of the vector
     double length() const;
 
+    // Normalised vector (unit vector in same direction with length 1)
+    Vector normalize() const;
+
     // Operator overloads
     Vector operator+(const Vector& other) const;
     Vector operator-(const Vector& other) const;

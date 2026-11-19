@@ -15,6 +15,10 @@ double Vector::length() const {
     return std::sqrt(dot(*this));
 }
 
+Vector Vector::normalize() const {
+    return *this * (1.0 / length());
+}
+
 Vector Vector::operator+(const Vector& other) const {
     return Vector(_x + other._x, _y + other._y, _z + other._z);
 }

@@ -56,6 +56,7 @@ add_library(raytracer_core
     src/render/Image.cpp
     src/io/PngSaver.cpp
     src/material/FlatShader.cpp
+    src/light/Light.cpp
 )
 
 target_include_directories(raytracer_core PUBLIC

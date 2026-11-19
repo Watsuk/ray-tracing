@@ -20,6 +20,7 @@ add_executable(raytracer_tests
     math/test_vector_multiplication.cpp
     math/test_vector_dot.cpp
     math/test_vector_length.cpp
+    math/test_vector_normalize.cpp
     colour/test_colour.cpp
     geometry/test_ray.cpp
     render/test_camera.cpp
@@ -28,6 +29,7 @@ add_executable(raytracer_tests
     render/test_image.cpp
     io/test_image_saver.cpp
     material/test_material.cpp
+    light/test_light.cpp
 )
 
 target_include_directories(raytracer_tests PRIVATE
