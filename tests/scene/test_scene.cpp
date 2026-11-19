@@ -11,6 +11,11 @@
 
 using Catch::Matchers::WithinAbs;
 
+TEST_CASE("Scene constructor normalises toLight", "[scene]") {
+    Scene scene(Vector(0.0, 3.0, -4.0));
+    requireVectorsEqual(scene.toLight(), Vector(0.0, 0.6, -0.8));
+}
+
 TEST_CASE("Scene nearestHit returns nearest shape intersection", "[scene]") {
     Ray ray(Vector(0.0, 0.0, -1.0), Vector(0.0, 0.0, 1.0));
 

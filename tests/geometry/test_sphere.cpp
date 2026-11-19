@@ -1,9 +1,12 @@
 #include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
 #include "geometry/Sphere.h"
 #include "geometry/Ray.h"
 #include "colour/Colour.h"
 #include "geometry/HitInfo.h"
 #include "test_helpers.h"
+
+using Catch::Matchers::WithinAbs;
 
 TEST_CASE("Sphere ray intersection and colour", "[geometry][sphere]") {
     Ray ray(Vector(0.0, 0.0, -1.0), Vector(0.0, 0.0, 1.0));
@@ -63,16 +66,12 @@ TEST_CASE("Sphere hit returns HitInfo / Hinfo", "[geometry][sphere][hit]") {
         REQUIRE(hitInfo == nullptr);
     }
 
-    SECTION("Ray origin inside sphere: ignores negative t1 and picks closest positive t2") {
-        // Ray origin at (0, 0, 9) is at center of sphere with radius 5
-        Ray insideRay(Vector(0.0, 0.0, 9.0), Vector(0.0, 0.0, 1.0));
-        Sphere sphere(Vector(0.0, 0.0, 9.0), 5.0, Colour(1.0, 0.0, 0.0));
-
-        // t1 = -5, t2 = +5. Should ignore negative t1 and pick positive t2 = 5 -> hit at (0, 0, 14)
-        auto hitInfo = sphere.hit(insideRay);
+    SECTION("Ray inside sphere around eye with centre (0, 0, 1) and radius 5: hits at t = 7, point (0, 0, 6), normal (0, 0, 1)") {
+        Sphere sphere(Vector(0.0, 0.0, 1.0), 5.0, Colour(1.0, 0.0, 0.0));
+        auto hitInfo = sphere.hit(ray);
         REQUIRE(hitInfo != nullptr);
-        REQUIRE(hitInfo->t > 0.0);
-        requireVectorsEqual(hitInfo->point, Vector(0.0, 0.0, 14.0));
+        REQUIRE_THAT(hitInfo->t, WithinAbs(7.0, tolerance));
+        requireVectorsEqual(hitInfo->point, Vector(0.0, 0.0, 6.0));
         requireVectorsEqual(hitInfo->normal, Vector(0.0, 0.0, 1.0));
     }
 

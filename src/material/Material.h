@@ -23,6 +23,7 @@ public:
 
     virtual const Colour& colour() const { return _colour; }
 
+    // normal and toLight must be unit vectors.
     virtual Colour shade(const Vector& normal, const Vector& toLight) const {
         double dot = normal.dot(toLight);
         if (dot < 0.0) {

@@ -4,7 +4,6 @@
 #include <optional>
 #include "math/Vector.h"
 #include "geometry/Ray.h"
-#include "colour/Colour.h"
 #include "material/Material.h"
 #include "material/FlatShader.h"
 #include "geometry/shape.h"

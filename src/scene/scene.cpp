@@ -1,7 +1,7 @@
 #include "scene/scene.h"
 
 Scene::Scene(const Vector& toLight)
-    : _toLight(toLight) {}
+    : _toLight(toLight.normalised()) {}
 
 const Vector& Scene::toLight() const {
     return _toLight;
