@@ -9,16 +9,21 @@
 #include "render/Image.h"
 #include "io/PngSaver.h"
 
+#include "material/LambertShader.h"
+#include "light/Light.h"
+
 int main() {
     std::cout << raytracer::get_greeting() << "\n";
 
     Camera camera(Vector(0, 0, -1), 5.0);
-    Sphere sphere(Vector(0, 0, 9), 7.0, Colour(0, 1, 0));
+    auto lambert = std::make_shared<LambertShader>(Colour(0.2, 0.7, 0.3));
+    Sphere sphere(Vector(0, 0, 9), 7.0, lambert);
+    Light light(Vector(5, 5, -3), Colour(1.0, 1.0, 1.0));
 
     const unsigned int width = 800;
     const unsigned int height = 800;
 
-    Image image = camera.render(sphere, width, height);
+    Image image = camera.render(sphere, light, width, height);
 
     PngSaver saver("output.png");
     saver.save(image);

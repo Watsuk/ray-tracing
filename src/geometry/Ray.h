@@ -12,4 +12,7 @@ public:
 
     Vector origin() const;
     Vector direction() const;
+
+    // Calculates the point along the ray at position t: origin + direction * t
+    Vector at(double t) const;
 };

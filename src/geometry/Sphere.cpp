@@ -1,6 +1,8 @@
 #include "geometry/Sphere.h"
 #include "geometry/Ray.h"
+#include "light/Light.h"
 #include <cmath>
+#include <algorithm>
 
 Sphere::Sphere(const Vector& center, double radius, std::shared_ptr<Material> material)
     : _center(center), _radius(radius), _material(std::move(material)) {}
@@ -22,12 +24,14 @@ std::shared_ptr<Material> Sphere::material() const {
 
 Colour Sphere::colour() const {
     if (_material) {
-        return _material->shade(Ray(Vector(0.0, 0.0, 0.0), Vector(0.0, 0.0, 1.0)));
+        Hit hitInfo(_center, Vector(0.0, 0.0, 1.0), _material);
+        Light light(_center, Colour(1.0, 1.0, 1.0));
+        return _material->shade(hitInfo, light);
     }
     return Colour(0.0, 0.0, 0.0);
 }
 
-bool Sphere::isHitBy(const Ray& ray) const {
+std::optional<Hit> Sphere::hit(const Ray& ray) const {
     Vector D = ray.direction();
     Vector O = ray.origin();
     Vector C = _center;
@@ -40,16 +44,35 @@ bool Sphere::isHitBy(const Ray& ray) const {
 
     double discriminant = b * b - 4.0 * a * c;
     if (discriminant < 0.0) {
-        return false;
+        return std::nullopt;
     }
 
     double root = std::sqrt(discriminant);
     double t1 = (-b - root) / (2.0 * a);
     double t2 = (-b + root) / (2.0 * a);
 
-    return t1 > 0.0 || t2 > 0.0;
+    // Ignore t <= 0 and choose the closest one with t > 0
+    double t = -1.0;
+    if (t1 > 0.0 && t2 > 0.0) {
+        t = std::min(t1, t2);
+    } else if (t1 > 0.0) {
+        t = t1;
+    } else if (t2 > 0.0) {
+        t = t2;
+    } else {
+        return std::nullopt;
+    }
+
+    Vector hitPoint = ray.at(t);
+    Vector normal = (hitPoint - _center).normalize();
+
+    return Hit(t, hitPoint, normal, _material);
 }
 
-bool Sphere::hit(Ray& ray) {
-    return isHitBy(ray);
+std::optional<Hit> Sphere::hit(Ray& ray) {
+    return hit(static_cast<const Ray&>(ray));
+}
+
+bool Sphere::isHitBy(const Ray& ray) const {
+    return hit(ray).has_value();
 }

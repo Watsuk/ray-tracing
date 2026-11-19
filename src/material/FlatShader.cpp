@@ -6,7 +6,19 @@ FlatShader::FlatShader()
 FlatShader::FlatShader(const Colour& colour)
     : _colour(colour) {}
 
+Colour FlatShader::shade(const HitInfo& /*hitInfo*/, const Light& /*light*/) const {
+    return _colour;
+}
+
+Colour FlatShader::shade(const Ray& /*ray*/, const HitInfo& /*hitInfo*/, const Light& /*light*/) const {
+    return _colour;
+}
+
 Colour FlatShader::shade(const Ray& /*ray*/) const {
+    return _colour;
+}
+
+Colour FlatShader::shade() const {
     return _colour;
 }
 

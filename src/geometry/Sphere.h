@@ -1,13 +1,15 @@
 #pragma once
 
 #include <memory>
+#include <optional>
 #include "math/Vector.h"
 #include "geometry/Ray.h"
 #include "colour/Colour.h"
 #include "material/Material.h"
 #include "material/FlatShader.h"
+#include "geometry/shape.h"
 
-class Sphere {
+class Sphere : public Shape {
 private:
     Vector _center;
     double _radius;
@@ -23,5 +25,6 @@ public:
     Colour colour() const;
 
     bool isHitBy(const Ray& ray) const;
-    bool hit(Ray& ray);
+    std::optional<Hit> hit(const Ray& ray) const override;
+    std::optional<Hit> hit(Ray& ray);
 };

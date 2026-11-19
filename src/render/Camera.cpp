@@ -32,23 +32,43 @@ Ray Camera::rayThroughPixel(int column, int row, int imageWidth, int imageHeight
     return Ray(_position, direction);
 }
 
-void Camera::render(Image& image, const Sphere& sphere) {
+void Camera::render(Image& image, const Sphere& sphere, const Light& light) {
     for (unsigned int row = 0; row < image.height(); ++row) {
         for (unsigned int column = 0; column < image.width(); ++column) {
             Ray ray = rayThroughPixel(static_cast<int>(column), static_cast<int>(row),
                                       static_cast<int>(image.width()), static_cast<int>(image.height()));
-            Colour colour = trace(ray, sphere);
-            image.setPixel(column, row, colour);
+            auto hitInfo = sphere.hit(ray);
+            if (hitInfo != nullptr) {
+                if (hitInfo->material) {
+                    Colour colour = hitInfo->material->shade(*hitInfo, light);
+                    image.setPixel(column, row, colour);
+                }
+            }
         }
     }
+}
+
+void Camera::render(Image& image, const Sphere& sphere) {
+    Light defaultLight(_position, Colour(1.0, 1.0, 1.0));
+    render(image, sphere, defaultLight);
 }
 
 void Camera::render(const Sphere& sphere, Image& image) {
     render(image, sphere);
 }
 
+void Camera::render(const Sphere& sphere, const Light& light, Image& image) {
+    render(image, sphere, light);
+}
+
 Image Camera::render(const Sphere& sphere, unsigned int imageWidth, unsigned int imageHeight) {
     Image image(imageWidth, imageHeight);
     render(image, sphere);
+    return image;
+}
+
+Image Camera::render(const Sphere& sphere, const Light& light, unsigned int imageWidth, unsigned int imageHeight) {
+    Image image(imageWidth, imageHeight);
+    render(image, sphere, light);
     return image;
 }

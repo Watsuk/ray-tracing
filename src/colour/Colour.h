@@ -15,6 +15,10 @@ public:
     double g() const;
     double b() const;
 
+    Colour operator*(double scalar) const;
+    Colour operator*(const Colour& other) const;
+    friend Colour operator*(double scalar, const Colour& c);
+
     bool operator==(const Colour& other) const = default;
 
     friend std::ostream& operator<<(std::ostream& os, const Colour& c) {
