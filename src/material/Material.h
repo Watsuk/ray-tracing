@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "colour/Colour.h"
+#include "math/Vector.h"
 
 struct Hit;
 using HitInfo = Hit;
@@ -21,6 +22,14 @@ public:
     virtual ~Material() = default;
 
     virtual const Colour& colour() const { return _colour; }
+
+    virtual Colour shade(const Vector& normal, const Vector& toLight) const {
+        double dot = normal.dot(toLight);
+        if (dot < 0.0) {
+            dot = 0.0;
+        }
+        return Colour(_colour.r() * dot, _colour.g() * dot, _colour.b() * dot);
+    }
 
     virtual Colour shade(const Hit& hit, const Light& light) const {
         (void)hit;

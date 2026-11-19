@@ -14,6 +14,8 @@ private:
     Colour _colour;
 
 public:
+    using Material::shade;
+
     FlatShader();
     explicit FlatShader(const Colour& colour);
 

@@ -15,12 +15,12 @@ double Camera::screenWidth() const {
     return _screenWidth;
 }
 
-Ray Camera::rayThroughCenter() {
+Ray Camera::rayThroughCenter() const {
     Vector direction(0, 0, 1);
     return Ray(_position, direction);
 }
 
-Ray Camera::rayThroughPixel(int column, int row, int imageWidth, int imageHeight) {
+Ray Camera::rayThroughPixel(int column, int row, int imageWidth, int imageHeight) const {
     double pixelSize = _screenWidth / imageWidth;
 
     double x = ((column + 0.5) - (imageWidth / 2.0)) * pixelSize;
@@ -30,6 +30,29 @@ Ray Camera::rayThroughPixel(int column, int row, int imageWidth, int imageHeight
     Vector direction = pixelPosition - _position;
 
     return Ray(_position, direction);
+}
+
+Image Camera::render(const Scene& scene, int width, int height) const {
+    Image image(static_cast<unsigned int>(width), static_cast<unsigned int>(height));
+    render(image, scene);
+    return image;
+}
+
+Image Camera::render(const Scene& scene, unsigned int width, unsigned int height) const {
+    Image image(width, height);
+    render(image, scene);
+    return image;
+}
+
+void Camera::render(Image& image, const Scene& scene) const {
+    int width = static_cast<int>(image.width());
+    int height = static_cast<int>(image.height());
+    for (int row = 0; row < height; ++row) {
+        for (int column = 0; column < width; ++column) {
+            Ray ray = rayThroughPixel(column, row, width, height);
+            image.setPixel(column, row, trace(ray, scene));
+        }
+    }
 }
 
 void Camera::render(Image& image, const Sphere& sphere, const Light& light) {

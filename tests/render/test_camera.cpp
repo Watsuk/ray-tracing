@@ -1,6 +1,9 @@
 #include <catch2/catch_test_macros.hpp>
+#include <memory>
 #include "render/Camera.h"
 #include "geometry/Sphere.h"
+#include "scene/scene.h"
+#include "material/Material.h"
 #include "test_helpers.h"
 
 TEST_CASE("Camera rayThroughCenter", "[render][camera]") {
@@ -53,10 +56,12 @@ TEST_CASE("Camera rayThroughPixel", "[render][camera]") {
 
 TEST_CASE("Camera render function", "[render][camera]") {
     Camera camera(Vector(0.0, 0.0, -1.0), 5.0);
-    Sphere sphere(Vector(0.0, 0.0, 9.0), 5.0, Colour(1.0, 0.0, 0.0));
 
     SECTION("renders image with correct dimensions and colours") {
-        Image img = camera.render(sphere, 5, 3);
+        Scene scene(Vector(0.0, 0.0, -1.0));
+        scene.add(std::make_unique<Sphere>(Vector(0.0, 0.0, 9.0), 5.0, Material(Colour(1.0, 0.0, 0.0))));
+
+        Image img = camera.render(scene, 5, 3);
         REQUIRE(img.width() == 5);
         REQUIRE(img.height() == 3);
 
@@ -69,8 +74,11 @@ TEST_CASE("Camera render function", "[render][camera]") {
     }
 
     SECTION("renders into an existing image buffer") {
+        Scene scene(Vector(0.0, 0.0, -1.0));
+        scene.add(std::make_unique<Sphere>(Vector(0.0, 0.0, 9.0), 5.0, Material(Colour(1.0, 0.0, 0.0))));
+
         Image img(5, 3);
-        camera.render(img, sphere);
+        camera.render(img, scene);
 
         REQUIRE(img.pixel(2, 1) == Colour(1.0, 0.0, 0.0));
         REQUIRE(img.pixel(4, 0) == Colour(0.0, 0.0, 0.0));

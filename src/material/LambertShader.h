@@ -14,6 +14,8 @@ private:
     Colour _colour;
 
 public:
+    using Material::shade;
+
     LambertShader();
     explicit LambertShader(const Colour& colour);
 

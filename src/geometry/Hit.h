@@ -25,6 +25,10 @@ public:
         return _ptr ? _ptr->colour() : black;
     }
 
+    Colour shade(const Vector& normal, const Vector& toLight) const {
+        return _ptr ? _ptr->shade(normal, toLight) : Colour(0.0, 0.0, 0.0);
+    }
+
     explicit operator bool() const { return _ptr != nullptr; }
     bool operator==(std::nullptr_t) const { return _ptr == nullptr; }
     bool operator!=(std::nullptr_t) const { return _ptr != nullptr; }
