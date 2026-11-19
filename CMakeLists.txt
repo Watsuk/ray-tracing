@@ -50,6 +50,7 @@ add_library(raytracer_core
     src/math/Vector.cpp
     src/geometry/Ray.cpp
     src/geometry/Sphere.cpp
+    src/geometry/plane.cpp
     src/render/Camera.cpp
     src/colour/Colour.cpp
     src/render/trace.cpp

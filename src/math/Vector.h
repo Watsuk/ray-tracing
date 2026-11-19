@@ -22,6 +22,7 @@ public:
 
     // Normalised vector (unit vector in same direction with length 1)
     Vector normalize() const;
+    Vector normalised() const { return normalize(); }
 
     // Operator overloads
     Vector operator+(const Vector& other) const;
