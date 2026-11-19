@@ -1,20 +1,24 @@
-# 5. A Shape Has a Material (Composition Over Inheritance)
+# 5. A Shape Has a Material
 
 ## Context
 
-In ray tracing, geometric objects (such as Spheres and Planes) must define how they interact with light (their colour and shading technique). When designing the relationship between shapes and surface appearance, two primary object-oriented strategies exist:
+A surface in the ray tracer needs both a geometry (how it meets a ray) and an appearance (how it takes the light). As new shapes (`Sphere`, `Plane`) and materials are introduced, the architecture must define how these two responsibilities relate.
 
-1. **Inheritance**: Creating specialized subclasses combining geometry and material (e.g. `RedSphere`, `GreenLambertPlane`, `MirrorSphere`).
-2. **Composition**: Creating separate abstractions for geometry (`Shape`) and appearance (`Material`), where a shape holds an instance of or reference to a material.
+We considered two approaches:
+1. **Inheritance**: Subclassing shapes to include material behavior (e.g. `RedSphere`, `LambertianPlane`, `MirrorSphere`).
+2. **Composition**: Giving each shape a `Material` field, delegating shading to the material while the shape computes only the geometry.
 
-Without clear separation, using inheritance would result in a combinatorial explosion of classes ($\text{Shapes} \times \text{Materials}$) and tight coupling between geometry mathematics and optical models.
+Inheritance creates a Cartesian product of classes: $N$ shapes and $M$ materials produce $N \times M$ subclasses. Adding a material would require updating or duplicating every existing shape.
 
 ## Decision
 
-We will use **composition over inheritance**:
-- Every concrete `Shape` (such as `Sphere` and `Plane`) owns or references a `Material` instance (`_material`).
-- When a ray intersects a shape (`hit(ray)`), the resulting `Hit` record carries the hit point, surface normal, and the shape's `Material`.
-- Shading is delegated to `Material::shade()`, allowing materials to vary independently from shapes ($\text{Shapes} + \text{Materials}$).
+We choose **composition over inheritance**:
+- An abstract class `Shape` defines the geometric interface (`hit`).
+- Every concrete shape (`Sphere`, `Plane`) holds a `Material` instance (`_material`).
+- On intersection, `hit()` returns a `Hit` record carrying the hit point, unit normal, and a reference to the shape's material.
+- Shading is delegated to `Material::shade(normal, toLight)`.
+
+Shapes *have* a material; they are not materials themselves.
 
 ## Status
 
@@ -23,10 +27,10 @@ Proposed
 ## Consequences
 
 ### Positive
-- **Extensibility (Open/Closed Principle)**: Adding a new shape requires only implementing geometric intersection math. Adding a new material or shader does not touch any shape classes.
-- **Flexibility**: Any material can be applied to any shape at runtime without creating new classes.
-- **Maintainability**: Clear separation of concerns between spatial geometry (where and which way) and optics (how light reflects).
+- Adding a new shape or a new material requires adding only a single class ($N + M$ classes instead of $N \times M$).
+- A shape's geometry mathematics is decoupled from optical reflection models.
+- Shapes and materials can be combined freely at runtime.
 
 ### Negative
-- **Indirection**: Shading requires routing light parameters through the `Hit` record to the associated material.
-- **Memory Management**: Shapes must manage the lifetime or ownership of their associated materials.
+- Intersections must package and return a `Hit` record containing the material reference alongside geometric data.
+- Shapes must store and manage the lifetime of their material.
