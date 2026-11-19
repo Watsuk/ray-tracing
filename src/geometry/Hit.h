@@ -3,8 +3,7 @@
 #include <memory>
 #include <optional>
 #include "math/Vector.h"
-
-class Material;
+#include "material/Material.h"
 
 class MaterialRef {
 private:
@@ -20,6 +19,11 @@ public:
     const Material* operator->() const { return _ptr; }
     const Material& operator*() const { return *_ptr; }
     operator const Material&() const { return *_ptr; }
+
+    const Colour& colour() const {
+        static const Colour black(0.0, 0.0, 0.0);
+        return _ptr ? _ptr->colour() : black;
+    }
 
     explicit operator bool() const { return _ptr != nullptr; }
     bool operator==(std::nullptr_t) const { return _ptr == nullptr; }

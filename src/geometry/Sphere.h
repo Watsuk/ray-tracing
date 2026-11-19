@@ -17,6 +17,7 @@ private:
 
 public:
     Sphere(const Vector& center, double radius, std::shared_ptr<Material> material);
+    Sphere(const Vector& center, double radius, const Material& material);
     Sphere(const Vector& center, double radius, const Colour& colour = Colour(1.0, 0.0, 0.0));
 
     Vector center() const;

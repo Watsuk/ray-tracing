@@ -4,10 +4,10 @@
 #include <algorithm>
 
 LambertShader::LambertShader()
-    : _colour(1.0, 1.0, 1.0) {}
+    : Material(Colour(1.0, 1.0, 1.0)), _colour(1.0, 1.0, 1.0) {}
 
 LambertShader::LambertShader(const Colour& colour)
-    : _colour(colour) {}
+    : Material(colour), _colour(colour) {}
 
 Colour LambertShader::shade(const HitInfo& hitInfo, const Light& light) const {
     Vector lightDirection = (light.position() - hitInfo.point).normalize();

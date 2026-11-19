@@ -59,6 +59,7 @@ add_library(raytracer_core
     src/material/FlatShader.cpp
     src/material/LambertShader.cpp
     src/light/Light.cpp
+    src/scene/scene.cpp
 )
 
 target_include_directories(raytracer_core PUBLIC

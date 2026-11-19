@@ -1,7 +1,7 @@
 #include "geometry/plane.h"
 
 Plane::Plane(const Vector& point, const Vector& normal, const Material& material)
-    : _point(point), _normal(normal.normalised()), _material(material) {}
+    : _point(point), _normal(normal.normalised()), _material(material.clone()) {}
 
 std::optional<Hit> Plane::hit(const Ray& ray) const {
     double nDotD = _normal.dot(ray.direction());

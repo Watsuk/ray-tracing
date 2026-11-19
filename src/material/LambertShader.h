@@ -22,4 +22,8 @@ public:
 
     const Colour& colour() const;
     void setColour(const Colour& colour);
+
+    std::shared_ptr<Material> clone() const override {
+        return std::make_shared<LambertShader>(*this);
+    }
 };

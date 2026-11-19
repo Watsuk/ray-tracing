@@ -7,6 +7,9 @@
 Sphere::Sphere(const Vector& center, double radius, std::shared_ptr<Material> material)
     : _center(center), _radius(radius), _material(std::move(material)) {}
 
+Sphere::Sphere(const Vector& center, double radius, const Material& material)
+    : _center(center), _radius(radius), _material(material.clone()) {}
+
 Sphere::Sphere(const Vector& center, double radius, const Colour& colour)
     : _center(center), _radius(radius), _material(std::make_shared<FlatShader>(colour)) {}
 

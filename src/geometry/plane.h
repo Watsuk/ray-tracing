@@ -12,7 +12,7 @@ class Plane : public Shape {
 private:
     Vector _point;
     Vector _normal;
-    const Material& _material;
+    std::shared_ptr<Material> _material;
 
 public:
     Plane(const Vector& point, const Vector& normal, const Material& material);
